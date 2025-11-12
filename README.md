@@ -40,3 +40,22 @@ class QNetwork(nn.Module):
         super(QNetwork, self).__init__()
         ...
 ```
+
+#### training.ipynb
+- [cell 3] hyperparameter tuning
+```py
+CONFIGS = edict({
+    "GET_DATASET": True,
+    "TICKERS": [
+        "KS11",
+        "KQ11",
+    ],
+    "DATAFRAME_PATH": "./data",
+    "WINDOW_SIZE": 10,
+    "OUTPUT_SIZE": 2,
+    "EPOCHS": 50,
+    "GAMMA": 0.95,
+    "BATCH_SIZE": 2,
+    "LEARNING_RATE": 1e-5,
+})
+```

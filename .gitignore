@@ -209,4 +209,6 @@ __marimo__/
 # Finance-dataset
 data/
 
+# etc
 .DS_Store
+~$*

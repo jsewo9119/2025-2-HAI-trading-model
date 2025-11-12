@@ -13,7 +13,7 @@ class StockDataset(data.Dataset):
     window_size = 10
     term = 5
 
-    def __init__(self, df, window_size=10, term=5):
+    def __init__(self, df, window_size, term):
         self.window_size = window_size
         self.term = term
         self.prices, self.rewards = self.preprocess(df)
@@ -35,7 +35,7 @@ class StockDataset(data.Dataset):
 
         for i in range(len(prices) - self.window_size - self.term + 1):
             rewards.append(
-                prices[i + self.window_size - 1] - max(prices[i + self.window_size : i + self.window_size + self.term])
+                max(prices[i + self.window_size : i + self.window_size + self.term]) - prices[i + self.window_size - 1]
             )
 
         rewards = torch.FloatTensor(rewards)
@@ -43,6 +43,8 @@ class StockDataset(data.Dataset):
         return prices, rewards
 
 
-def gen_dataset(dfs) -> data.ConcatDataset:
-    datasets = [StockDataset(df) for df in dfs]
+def gen_dataset(dfs, CONFIGS) -> data.ConcatDataset:
+    window_size = CONFIGS.WINDOW_SIZE
+    term = CONFIGS.TERM
+    datasets = [StockDataset(df, window_size, term) for df in dfs]
     return data.ConcatDataset(datasets)
