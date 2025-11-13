@@ -45,6 +45,6 @@ class StockDataset(data.Dataset):
 
 def gen_dataset(dfs, CONFIGS) -> data.ConcatDataset:
     window_size = CONFIGS.WINDOW_SIZE
-    term = CONFIGS.TERM
+    term = CONFIGS.OUTPUT_SIZE
     datasets = [StockDataset(df, window_size, term) for df in dfs]
     return data.ConcatDataset(datasets)
